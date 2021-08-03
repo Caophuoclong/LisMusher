@@ -1,0 +1,17 @@
+html{
+    font-size: 62.5%;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+a{
+    text-decoration: none;
+}
+input{
+    outline: none;
+}
+ul>li{
+    list-style-type: none;
+}

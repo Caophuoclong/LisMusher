@@ -1,0 +1,8 @@
+@import "./style.scss";
+.box{
+    @include circle(10rem);
+    @include bgColor();
+}
+.menu{
+    @include flexCenter;
+}
