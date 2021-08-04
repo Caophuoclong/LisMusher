@@ -1,0 +1,45 @@
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+.text-center {
+  text-align: center;
+}
+.fl-start {
+  justify-content: flex-start;
+}
+.fl-col {
+  flex-flow: column;
+}
+.mg-center {
+  margin: 0 auto;
+}
+
+.w-100 {
+  width: 10rem;
+}
+.h-100 {
+  height: 10rem;
+}
+.fw {
+  font-weight: bold;
+}
+.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dnone {
+  display: none;
+}
+.h-1 {
+  height: 99.99vh;
+}

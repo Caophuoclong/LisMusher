@@ -1,17 +1,11 @@
 import "./App.scss";
+import ListenRoom from "./features/listenRoom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 function App() {
   return (
-    <div className="App flex">
-      <div className="box mg-center"></div>
-      <div className="menu">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-          accusantium porro asperiores ipsa expedita unde in at ipsam. Maxime
-          sapiente error aliquam voluptates quae nemo excepturi repellendus
-          consequuntur quis inventore?
-        </p>
-        
-      </div>
+    <div className="App">
+      <ListenRoom />
     </div>
   );
 }
