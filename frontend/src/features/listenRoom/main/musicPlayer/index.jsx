@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ReactAudioPlayer from "react-audio-player";
 import ReactPlayer from "react-player";
 import { getTitle, getId } from "../../../../components/inforYoutube";
 import ShowMusicPlayer from "./showMusicPlayer";
+import { useSelector,useDispatch } from "react-redux";
+import {setPlayingCurrent} from "../../playingCurrentSlice"
+import casual from "casual-browserify";
 Index.propTypes = {};
 
 function Index(props) {
-  const {linkMusic} = props;
+  const linkMusic = useSelector((state) => state.playing);
+  const dispatch = useDispatch();
   const [playing, setPlaying] = useState(false);
   const [player, setPlayer] = useState();
   const [duration, setDuration] = useState();
@@ -16,42 +20,87 @@ function Index(props) {
   const [randomLoop, setRandomLoop] = useState("random");
   const [volume, setVolume] = useState(20);
   const [mute, setMute] = useState(false);
+  const [loop, setLoop] = useState(false);
+  const currentSong = JSON.parse(window.localStorage.getItem("current-song"));
+  const [url, setUrl] = useState();
+
   const ref = (pl) => {
     setPlayer(pl);
   };
   const handleProgress = (progress) => {
     setDuration(player.getCurrentTime());
   };
-  const handleChangeVolume = (value) =>{
-      
-      setVolume(value/100);
-  }
-  const onMute = ()=>{
-    mute?setMute(false):setMute(true);
-  }
-    
-  const url = linkMusic;
-    const id = getId(url);
-    const setStatus = () => {
+  const handleChangeVolume = (value) => {
+    setVolume(value / 100);
+  };
+  const onMute = () => {
+    mute ? setMute(false) : setMute(true);
+  };
+  useEffect(() => {
+    setUrl(linkMusic);
+  }, [linkMusic]);
+  useEffect(()=>{
+    setUrl(currentSong)
+  },[currentSong]);
+  const id = getId(!url?!currentSong?"":currentSong:url);
+  const setStatus = () => {
     if (playing) setPlaying(false);
     else {
       setPlaying(true);
     }
   };
-    const setRandomOrLoop = ()=>{
-      if(randomLoop === "random") setRandomLoop("loop");
-      else setRandomLoop("random")
+  const setRandomOrLoop = () => {
+    if (randomLoop === "random") {
+      setRandomLoop("loop");
+      setLoop(true);
+    } else {
+      setRandomLoop("random");
+      setLoop(false);
     }
+  };
+  const listLinkMusic = useSelector(state=>state.musicListLink)
+  const handleForward = ()=>{
+    let position = listLinkMusic.indexOf(currentSong);
+    if(position < listLinkMusic.length-1){
+      position+=1;
+    }
+    else{
+      position = 0;
+    }
+    const nextSong = listLinkMusic[position];
+    window.localStorage.setItem("current-song", JSON.stringify(nextSong));
+    const action = setPlayingCurrent(nextSong);
+    dispatch(action);
+  }
+  const handleBackward = ()=>{
+    let position = listLinkMusic.indexOf(currentSong);
+    if(position <= 1){
+      position = listLinkMusic.length-1;
+    }
+    else{
+      position -= 1;
+    }
+    const previousSong = listLinkMusic[position];
+    window.localStorage.setItem("current-song", JSON.stringify(previousSong));
+    const action = setPlayingCurrent(previousSong);
+    dispatch(action);
+
+  }
+  const handleEnded = ()=>{
+    handleForward();
+  }
   return (
     <div className="musicPlayer">
       <ReactPlayer
         ref={ref}
         className="player-react"
         url={url}
+        loop={loop}
         volume={volume}
         muted={mute}
         playing={playing}
         onProgress={handleProgress}
+        onEnded={handleEnded}
         onDuration={(duration) => {
           setTimeEnd(duration);
         }}
@@ -69,6 +118,8 @@ function Index(props) {
         handleChangeVolume={handleChangeVolume}
         onMute={onMute}
         mute={mute}
+        handleForward={handleForward}
+        handleBackward={handleBackward}
       />
     </div>
   );

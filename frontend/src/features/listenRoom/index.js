@@ -12,7 +12,6 @@ function Index(props) {
   };
   return (
     <div className="flex fl-start h-1">
-      <ResultSearch />
       <LeftSide getLink={getLink} />
       <Main url={linkMusic} />
     </div>

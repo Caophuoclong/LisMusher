@@ -43,8 +43,14 @@ background: linear-gradient(90deg, rgba(129,139,139,1) 31%, rgba(108,113,111,1) 
         display: none;
     }
     .musicPlayer{
+        position: relative;
+        height: 100%;
         .showMusicPlayer{
             display: flex;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
             justify-content: center;
             flex-direction: column;
             align-items: center;
@@ -137,7 +143,7 @@ background: linear-gradient(90deg, rgba(129,139,139,1) 31%, rgba(108,113,111,1) 
     }
     .rooms{
         margin: 1rem 0rem;
-        height: 200px;
+        height: 300px;
         overflow: hidden;
         border-radius: 2rem;
         &__room{

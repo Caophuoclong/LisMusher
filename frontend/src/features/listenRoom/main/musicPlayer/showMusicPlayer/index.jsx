@@ -27,6 +27,8 @@ function Index(props) {
     handleChangeVolume,
     mute,
     onMute,
+    handleForward,
+    handleBackward,
   } = props;
   const [volumeValue, setvolumeValue] = useState(20);
   const convertToTime = (value) => {
@@ -91,7 +93,7 @@ function Index(props) {
             size="2x"
           />
         )}
-        <FontAwesomeIcon className="icon-fn" icon={faStepBackward} size="2x" />
+        <FontAwesomeIcon onClick={handleBackward} className="icon-fn" icon={faStepBackward} size="2x" />
         {status ? (
           <FontAwesomeIcon
             className="icon-fn"
@@ -107,7 +109,7 @@ function Index(props) {
             size="2x"
           />
         )}
-        <FontAwesomeIcon className="icon-fn" icon={faStepForward} size="2x" />
+        <FontAwesomeIcon onClick={handleForward} className="icon-fn" icon={faStepForward} size="2x" />
         <div className="changeVolume" onWheel={handleChangeVolumeWheel}>
           {mute ? (
             <FontAwesomeIcon

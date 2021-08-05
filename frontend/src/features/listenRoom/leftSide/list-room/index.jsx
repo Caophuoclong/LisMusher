@@ -4,6 +4,9 @@ import casual from "casual-browserify";
 import asd, {getTitle, getId} from "../../../../components/inforYoutube";
 import music from "../../music"
 import { set } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { addSong } from "../../musicListInfoSlice";
+
 Index.propTypes = {
   listMusic: PropTypes.array,
 };
@@ -48,35 +51,11 @@ Index.defaultProps = {
 
 function Index(props) {
   const {handleSelect} = props;
-    const [info, setInfo] = useState([]);
-    const [refresh, setRefresh] = useState(0);
-    const handleAClick = (e)=>{
-      e.preventDefault();
-      console.log(e);
-    }
-    const handleCounter = ()=>{
-      setRefresh(refresh+1);
-    }
-    const musicList = music.musicList;
-    useEffect(()=>{
-        let arrayMusic = [];
-        musicList.forEach( async value=>{
-            const id = getId(value);
-            const res = await getTitle(id);
-            const title = res.data.items[0].snippet.title;
-            const img_url = `https://img.youtube.com/vi/${id}/0.jpg`
-            arrayMusic.push({url:value,img_url, title});
-        })
-        setInfo(arrayMusic);
-    },[])
-    console.log(info);
+  const listSong = useSelector(state => state.music);
   return (
       <div>
-        <div>
-          <button onClick={handleCounter}>xin chao</button>
-        </div>
         <ul className="rooms">
-            {info.map((value,pos)=>
+            {listSong.map((value,pos)=>
                 <li className="list__music" key={pos} >
                     <a className="rooms__room flex align-center link__music" href={value.url} onClick={handleSelect}>
                     <img src={value.img_url} alt="" className="rooms__room--avatar" />
