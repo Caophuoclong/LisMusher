@@ -15,7 +15,6 @@ function index(props) {
     const {user_img_url, user_name} = props;
     return (
         <div className="user">
-            {console.log(user_img_url)}
             <img src={user_img_url} alt="" className="user__avatar" />
             <p className="user__name fw">{user_name}</p>
         </div>

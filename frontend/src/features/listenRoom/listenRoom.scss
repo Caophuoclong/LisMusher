@@ -1,4 +1,13 @@
 @import "../../mixin";
+body::-webkit-scrollbar{
+    width: .8rem;
+}
+body::-webkit-scrollbar-thumb {
+    background: rgb(129,139,139);
+background: linear-gradient(90deg, rgba(129,139,139,1) 31%, rgba(108,113,111,1) 46%, rgba(171,166,155,1) 100%);
+    border-radius: 8px;
+    background-clip: padding-box;  
+}
 .main{
     width: 80%;
     border: 1px solid black;
@@ -62,6 +71,32 @@
                 margin: .5rem;
                 &>*{
                     margin: 0 .5rem;
+                }
+                position: relative;
+                .icon-fn{
+                    cursor: pointer;
+                }
+                .changeVolume{
+                    .volumeSlider{
+                        display: flex;
+                        transform: rotate(-90deg);
+                        transform-origin: center;
+                        position: absolute;
+                        transform-origin: top left;
+                        bottom: 1rem;
+                        opacity: 0;
+                        transition: all .5s ease;
+                        input[type="range"]{
+                            background-color: transparent;
+                            border: none;
+                        }
+                    }
+                    &:hover .volumeSlider{
+                        opacity: 1;
+                        background-color: #e5e5e5;
+                        padding: .5rem;
+                        border-radius: 1rem;
+                    }
 
                 }
             }
@@ -102,23 +137,26 @@
     }
     .rooms{
         margin: 1rem 0rem;
-        height: 50%;
+        height: 200px;
         overflow: hidden;
-
         border-radius: 2rem;
         &__room{
             padding: .5rem;
             height: 20%;
             &--avatar{
                 border-radius: 10px;
+                width: 5rem;
+                height: 5rem;
             }
             &--name{
                 font-size: 1.5rem;
                 margin: 0px auto;
                 width: 70%;
-
-                
+                cursor:context-menu;                
             }
+        }
+        .list__music:hover{
+            background-color: rgba(0,0,0,0.2);
         }
 
     }

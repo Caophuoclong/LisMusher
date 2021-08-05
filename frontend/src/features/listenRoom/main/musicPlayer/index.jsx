@@ -2,59 +2,54 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ReactAudioPlayer from "react-audio-player";
 import ReactPlayer from "react-player";
-import getInfoVideo from "../../../../axiosClient/axiosClient";
+import { getTitle, getId } from "../../../../components/inforYoutube";
 import ShowMusicPlayer from "./showMusicPlayer";
 Index.propTypes = {};
 
 function Index(props) {
+  const {linkMusic} = props;
   const [playing, setPlaying] = useState(false);
   const [player, setPlayer] = useState();
   const [duration, setDuration] = useState();
   const [timeEnd, setTimeEnd] = useState();
-  const [title, setTitle] = useState()
-  const api_key = "AIzaSyDXKvZjPxqrtMsHduX_Ioygsb9Db_JW3sE";
-    
+  const [title, setTitle] = useState();
+  const [randomLoop, setRandomLoop] = useState("random");
+  const [volume, setVolume] = useState(20);
+  const [mute, setMute] = useState(false);
   const ref = (pl) => {
     setPlayer(pl);
   };
   const handleProgress = (progress) => {
     setDuration(player.getCurrentTime());
   };
-  const handleSetStartPlaying = () => {
-    setPlaying(true);
-  };
-  const handleSetStopPlaying = () => {
-    setPlaying(false);
-  };
-  const url =
-    "https://www.youtube.com/watch?v=lxFmeBhoA1Y&ab_channel=H%C3%A0AnhTu%E1%BA%A5n";
-  const youtube_parser_Id = (url) => {
-    var regExp =
-      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    var match = url.match(regExp);
-    return match && match[7].length == 11 ? match[7] : false;
-  };
-    const id = youtube_parser_Id(url);
-    const getTitle = async (id,api_key)=>{
-        const info = await getInfoVideo(id,api_key);
-        return info;
+  const handleChangeVolume = (value) =>{
+      
+      setVolume(value/100);
+  }
+  const onMute = ()=>{
+    mute?setMute(false):setMute(true);
+  }
+    
+  const url = linkMusic;
+    const id = getId(url);
+    const setStatus = () => {
+    if (playing) setPlaying(false);
+    else {
+      setPlaying(true);
     }
-    getTitle(id,api_key).then(info=>{
-        setTitle(info.data.items[0].snippet.title);
-    });
-    const setStatus = ()=>{
-        if(playing)
-            setPlaying(false);
-        else{
-            setPlaying(true);
-        }
+  };
+    const setRandomOrLoop = ()=>{
+      if(randomLoop === "random") setRandomLoop("loop");
+      else setRandomLoop("random")
     }
-    return (
+  return (
     <div className="musicPlayer">
       <ReactPlayer
         ref={ref}
         className="player-react"
         url={url}
+        volume={volume}
+        muted={mute}
         playing={playing}
         onProgress={handleProgress}
         onDuration={(duration) => {
@@ -63,14 +58,17 @@ function Index(props) {
       />
 
       <ShowMusicPlayer
-        handlePlayingStart={handleSetStartPlaying}
-        handlePlayingStop={handleSetStopPlaying}
         maxValue={timeEnd}
         current={duration}
-        url_thumbnail = {`https://img.youtube.com/vi/${id}/0.jpg`}
-        title_video = {title}
+        url_thumbnail={`https://img.youtube.com/vi/${id}/0.jpg`}
+        title_video={title}
         status={playing}
         handleStatus={setStatus}
+        randomLoop={randomLoop}
+        handleRandomOrLoop={setRandomOrLoop}
+        handleChangeVolume={handleChangeVolume}
+        onMute={onMute}
+        mute={mute}
       />
     </div>
   );
