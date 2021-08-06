@@ -57,7 +57,7 @@ function Index(props) {
         <ul className="rooms">
             {listSong.map((value,pos)=>
                 <li className="list__music" key={pos} >
-                    <a className="rooms__room flex align-center link__music" href={value.url} onClick={handleSelect}>
+                    <a className="rooms__room flex align-center link__music"  href={value.url} onClick={handleSelect}>
                     <img src={value.img_url} alt="" className="rooms__room--avatar" />
                     <span  className="rooms__room--name fw overflow" >{value.title}</span>
                     </a>

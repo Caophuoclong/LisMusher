@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import ReactPlayer from "react-player";
-import { getTitle, getId } from "../../../../components/inforYoutube";
+import {  getId } from "../../../../components/inforYoutube";
 import ShowMusicPlayer from "./showMusicPlayer";
 import { useSelector,useDispatch } from "react-redux";
 import {setPlayingCurrent} from "../../playingCurrentSlice"
-import casual from "casual-browserify";
 Index.propTypes = {};
 
 function Index(props) {

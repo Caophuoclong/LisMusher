@@ -63,11 +63,15 @@ function Index(props) {
   };
   if(status){
     const img_thumbnail = document.getElementsByClassName("img_thumbnail");
-    img_thumbnail[0].classList.add("spin");
+    if(img_thumbnail[0] !== undefined){
+      img_thumbnail[0].classList.add("spin");
+    }
   }
   else{
     const img_thumbnail = document.getElementsByClassName("img_thumbnail");
-    img_thumbnail[0].classList.remove("spin");
+    if(img_thumbnail[0] !== undefined){
+      img_thumbnail[0].classList.remove("spin");
+    }
   }
   return (
     <div className="showMusicPlayer">
