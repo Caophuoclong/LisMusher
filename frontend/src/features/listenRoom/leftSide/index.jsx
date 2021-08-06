@@ -29,10 +29,9 @@ function Index(props) {
                 value.setAttribute("id","selected");
             }
         })
-        document.getElementById("selected").scrollIntoView();
-
-
-
+        const selectedElement = document.getElementById("selected");
+        if(selectedElement)
+            selectedElement.scrollIntoView();
     },[playing])
     
     return (

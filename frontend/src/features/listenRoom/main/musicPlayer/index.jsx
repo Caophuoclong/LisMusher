@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import ReactAudioPlayer from "react-audio-player";
 import ReactPlayer from "react-player";
 import { getTitle, getId } from "../../../../components/inforYoutube";
 import ShowMusicPlayer from "./showMusicPlayer";
@@ -44,9 +43,11 @@ function Index(props) {
   },[currentSong]);
   const id = getId(!url?!currentSong?"":currentSong:url);
   const setStatus = () => {
-    if (playing) setPlaying(false);
+    if (playing) {setPlaying(false);}
     else {
       setPlaying(true);
+      const action = setPlayingCurrent(currentSong);
+      dispatch(action);
     }
   };
   const setRandomOrLoop = () => {

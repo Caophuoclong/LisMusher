@@ -61,9 +61,17 @@ function Index(props) {
     setvolumeValue(parseInt(volumeValue) + value);
     console.log(volumeValue);
   };
+  if(status){
+    const img_thumbnail = document.getElementsByClassName("img_thumbnail");
+    img_thumbnail[0].classList.add("spin");
+  }
+  else{
+    const img_thumbnail = document.getElementsByClassName("img_thumbnail");
+    img_thumbnail[0].classList.remove("spin");
+  }
   return (
     <div className="showMusicPlayer">
-      <img className="thumbnail-img" src={url_thumbnail} alt="" />
+      <div className="img_thumbnail"><img className="thumbnail-img" src={url_thumbnail} alt="" /></div>
       <p className="title-video">{title_video}</p>
       <div className="progress-bar">
         <span className="value maxValue">{convertToTime(current)}</span>
