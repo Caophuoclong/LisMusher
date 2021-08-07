@@ -60,7 +60,7 @@ body::-webkit-scrollbar-thumb {
   }
   .rooms {
     margin: 1rem 0rem;
-    height: 300px;
+    max-height: 300px;
     overflow: hidden;
     border-radius: 2rem;
     &__room {

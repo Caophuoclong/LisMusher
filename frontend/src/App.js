@@ -1,6 +1,6 @@
 import "./App.scss";
 import ListenRoom from "./features/listenRoom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import music from "./features/listenRoom/music";
 import { useEffect } from "react";
 import { addSong } from "./features/listenRoom/musicListInfoSlice";
@@ -12,10 +12,11 @@ function App() {
   useEffect(() => {
     musicList.forEach(async (value) => {
       const id = getId(value);
+      console.log(id);
       const res = await getTitle(id);
       const title = res.data.items[0].snippet.title;
       const img_url = `https://img.youtube.com/vi/${id}/0.jpg`;
-      const action = addSong({ url: value, img_url, title });
+      const action = addSong({ id, url: value, img_url, title });
       const action1 = addMusicLink(value);
       dispatch(action);
       dispatch(action1);

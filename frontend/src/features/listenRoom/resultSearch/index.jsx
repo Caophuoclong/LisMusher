@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +9,9 @@ import searchWithKeyWord from '../../../components/searchYoutube';
 import { addSong } from '../musicListInfoSlice';
 import { addMusicLink } from "../musicListLinkSlice";
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { setPlayingCurrent } from '../playingCurrentSlice';
+import { getId } from '../../../components/inforYoutube';
 
 function Index(props) {
     const searchResult = useSelector(state => state.searchResult);
@@ -41,6 +42,7 @@ function Index(props) {
           const title = item.snippet.title;
           const thumbnail = item.snippet.thumbnails.medium.url;
           const info = {
+            id,
             img_url: thumbnail,
             url,
             title
@@ -51,16 +53,16 @@ function Index(props) {
         e.target.reset();
     
       }
-      const handleAddClick = async (event)=>{
-          const id = event.target.id.replace("btn",'');
-          const result = searchResult[id];
-          try{
+      const addToList = (result)=>{
+        try{
             const url = result.url;
             const img_url = result.img_url;
             const title = result.title;
             const actionAddLinkToListLink = addMusicLink(url);
             dispatch(actionAddLinkToListLink);
-            const action1 = addSong({ url, img_url, title });
+            const id = getId(result.url);
+            console.log(id);
+            const action1 = addSong({id, url, img_url, title });
             dispatch(action1);  
             toast.success(`🦄 Ban da them bai hat ${title} thanh cong`, {
                 position: "top-right",
@@ -75,6 +77,23 @@ function Index(props) {
               console.log(error);
           }
 
+      }
+      const handleAddClick = async (event)=>{
+          const id = event.target.id.replace("btn",'');
+          const result = searchResult[id];
+          addToList(result);
+          
+    }
+    const playNowAndSave = (e)=>{
+        try{       const id = e.target.id.replace("lst",'');
+        const result = searchResult[id];
+        addToList(result);
+        const actionSetPlaying = setPlayingCurrent(result.url);
+        dispatch(actionSetPlaying);
+        window.localStorage.setItem("current-song",JSON.stringify(result.url));
+        const actionEmptyResult = emptyResult();
+        dispatch(actionEmptyResult)} catch(error){}
+        
     }
     return (
         <div className="result-search" id="result-search-complete">
@@ -84,10 +103,10 @@ function Index(props) {
                 <ul className="list__searched">
                     {
                         searchResult.map((value,pos)=>(
-                            <li className="result-item" key={pos}>
+                            <li className="result-item"  key={pos} id={`lst${pos}`} onClick={playNowAndSave}>
                                 <img src={value.img_url} alt="" className="result-item-thumbnail"/>
                                 <span className="result-item-item">{value.title}</span>
-                                <FontAwesomeIcon id={`btn${pos}`} onClick={handleAddClick} className="btn-add" icon={faPlusCircle} size="2x"/>
+                                <button id={`btn${pos}`} onClick={handleAddClick} className="btn-add">+</button>
                             </li>
                         ))
                     }

@@ -1,0 +1,15 @@
+
+.delete-song{
+    opacity:0;
+    &:hover{
+        color: rgba(224, 54, 54, 0.87);
+    }
+    width: 2rem;
+    height: 2rem;
+    border-radius: 10px;
+    outline: none;
+}
+
+.rooms__room:hover .delete-song{
+    opacity: 1;
+}

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import {  getId } from "../../../../components/inforYoutube";
+import { getId } from "../../../../components/inforYoutube";
 import ShowMusicPlayer from "./showMusicPlayer";
-import { useSelector,useDispatch } from "react-redux";
-import {setPlayingCurrent} from "../../playingCurrentSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { setPlayingCurrent } from "../../playingCurrentSlice";
 Index.propTypes = {};
 
 function Index(props) {
@@ -36,13 +36,14 @@ function Index(props) {
   useEffect(() => {
     setUrl(linkMusic);
   }, [linkMusic]);
-  useEffect(()=>{
-    setUrl(currentSong)
-  },[currentSong]);
-  const id = getId(!url?!currentSong?"":currentSong:url);
+  useEffect(() => {
+    setUrl(currentSong);
+  }, [currentSong]);
+  const id = getId(!url ? (!currentSong ? "" : currentSong) : url);
   const setStatus = () => {
-    if (playing) {setPlaying(false);}
-    else {
+    if (playing) {
+      setPlaying(false);
+    } else {
       setPlaying(true);
       const action = setPlayingCurrent(currentSong);
       dispatch(action);
@@ -57,37 +58,38 @@ function Index(props) {
       setLoop(false);
     }
   };
-  const listLinkMusic = useSelector(state=>state.musicListLink)
-  const handleForward = ()=>{
+  const listLinkMusic = useSelector((state) => state.musicListLink);
+  const handleForward = () => {
     let position = listLinkMusic.indexOf(currentSong);
-    if(position < listLinkMusic.length-1){
-      position+=1;
-    }
-    else{
+    if (position < listLinkMusic.length - 1) {
+      position += 1;
+    } else {
       position = 0;
     }
     const nextSong = listLinkMusic[position];
-    window.localStorage.setItem("current-song", JSON.stringify(nextSong));
-    const action = setPlayingCurrent(nextSong);
-    dispatch(action);
-  }
-  const handleBackward = ()=>{
-    let position = listLinkMusic.indexOf(currentSong);
-    if(position <= 1){
-      position = listLinkMusic.length-1;
+    if (nextSong) {
+      window.localStorage.setItem("current-song", JSON.stringify(nextSong));
+      const action = setPlayingCurrent(nextSong);
+      dispatch(action);
     }
-    else{
+  };
+  const handleBackward = () => {
+    let position = listLinkMusic.indexOf(currentSong);
+    if (position <= 1) {
+      position = listLinkMusic.length - 1;
+    } else {
       position -= 1;
     }
     const previousSong = listLinkMusic[position];
-    window.localStorage.setItem("current-song", JSON.stringify(previousSong));
-    const action = setPlayingCurrent(previousSong);
-    dispatch(action);
-
-  }
-  const handleEnded = ()=>{
+    if (previousSong) {
+      window.localStorage.setItem("current-song", JSON.stringify(previousSong));
+      const action = setPlayingCurrent(previousSong);
+      dispatch(action);
+    }
+  };
+  const handleEnded = () => {
     handleForward();
-  }
+  };
   return (
     <div className="musicPlayer">
       <ReactPlayer

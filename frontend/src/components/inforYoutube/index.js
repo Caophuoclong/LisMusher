@@ -1,5 +1,5 @@
 import getInfoVideo from "../../axiosClient/axiosClient";
-const api_key = "AIzaSyAjWAtCY71ZEw8__goCvT7YW5pmK_atbhM";
+const api_key = "AIzaSyDXKvZjPxqrtMsHduX_Ioygsb9Db_JW3sE";
 
 const getTitle = (id) => {
   const info = getInfoVideo(id, api_key);
@@ -9,7 +9,7 @@ const getId = (url) => {
   var regExp =
     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   var match = url.match(regExp);
-  return match && match[7].length == 11 ? match[7] : false;
+  return match && match[7].length === 11 ? match[7] : false;
 };
 const progressYoutubeInfo = async (url) => {
   const id = getId(url);

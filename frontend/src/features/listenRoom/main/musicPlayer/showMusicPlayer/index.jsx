@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import ProgressBar from "../../../../../customComponent/react-progress-bar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

@@ -6,9 +6,18 @@ const musicList = createSlice({
   reducers: {
     addSong: (state, action) => {
       const payload = action.payload;
-      if (state.indexOf(payload) === -1) state.push(action.payload);
+      if (!state.includes(payload)) {
+        state.push(payload);
+      }
     },
-    removeSong: (state, action) => {},
+    removeSong: (state, action) => {
+      const payload = action.payload;
+      state.forEach((value, pos) => {
+        if (value.id === payload) {
+          state.splice(pos, 1);
+        }
+      });
+    },
   },
 });
 const { reducer, actions } = musicList;

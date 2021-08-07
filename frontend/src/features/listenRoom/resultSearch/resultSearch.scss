@@ -55,6 +55,10 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-around;
+                cursor: pointer;
+                &:hover{
+                    background-color: #fff;
+                }
                 &:not(:first-child){
                     margin: 2rem 0;
 
@@ -74,9 +78,10 @@
                     text-align: left;
                 }
                 .btn-add{
-                    background-color: transparent;
-                    border: none;
                     cursor: pointer;
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius:1rem;
                     &:focus{
                         outline: none;
                     }
