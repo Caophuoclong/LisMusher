@@ -15,14 +15,28 @@ Index.defaultProps = {
 function Index(props) {
   const { register, handleSubmit} = useForm();
   const { handleSearchSubmit } = props;
+  const inp_add_link = document.getElementById("inp-add-link");
+  if(inp_add_link){
+  inp_add_link.addEventListener("focusin",()=>{
+    document.getElementsByClassName("input-group")[0].style.width = "60%";
+    inp_add_link.style.width = "90%";
+  })
+  inp_add_link.addEventListener("focusout",()=>{
+    document.getElementsByClassName("input-group")[0].style.width = "30%";
+    inp_add_link.style.width = "80%";
+
+
+  })
+}
   return (
     <div className="search-bar">
-      <div className="input-group">
-        <form onSubmit={handleSubmit(handleSearchSubmit)}>
+        <form   onSubmit={handleSubmit(handleSearchSubmit)}>
+          <div className="input-group">
           <input
             type="text"
             className="inp-search"
-            placeholder="Search..."
+            id="inp-add-link"
+            placeholder="Type youtube link"
             {...register("search_input")}
             autocomplete="off"
           />
@@ -31,9 +45,9 @@ function Index(props) {
             className="icon-search"
             onClick={handleSearchSubmit}
           />
+          </div>
         </form>
       </div>
-    </div>
   );
 }
 

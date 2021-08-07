@@ -20,7 +20,6 @@ function Index(props) {
     }
     const playing = useSelector(state=>state.playing);
     useEffect(()=>{
-        console.log(playing);
         document.querySelectorAll(".link__music").forEach((value,pos)=>{
             value.classList.remove("selected");
             value.removeAttribute("id");
