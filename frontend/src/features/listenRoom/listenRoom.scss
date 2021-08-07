@@ -19,6 +19,29 @@ body::-webkit-scrollbar-thumb {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+.input-group {
+  $mg-left: 1.3rem;
+  width: 30%;
+  height: 3rem;
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 2rem;
+  padding: 0.5rem 0;
+  .inp-search {
+    font-size: 2rem;
+    height: 80%;
+    width: 80%;
+    margin-top: 0.2rem;
+    border: none;
+    padding-left: 1rem;
+    background-color: transparent; 
+  }
+  .icon-search {
+    font-size: 2rem;
+    margin-left: auto;
+  }
+  
+}
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -76,29 +99,7 @@ body::-webkit-scrollbar-thumb {
 
   .search-bar {
     height: 4.6rem;
-    .input-group {
-      $mg-left: 1.3rem;
-      width: 30%;
-      height: 3rem;
-      margin: 0 auto;
-      border: 1px solid black;
-      border-radius: 2rem;
-      padding: 0.5rem 0;
-      .inp-search {
-        font-size: 2rem;
-        height: 80%;
-        width: 80%;
-        margin-top: 0.2rem;
-        border: none;
-        padding-left: 1rem;
-        background-color: transparent; 
-      }
-      .icon-search {
-        font-size: 2rem;
-        margin-left: auto;
-      }
-      
-    }
+    
     
   }
   @media screen and (max-width: 768px) {

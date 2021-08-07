@@ -3,6 +3,10 @@ import User from "./user";
 import ListRoom from "./list-room";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayingCurrent } from '../playingCurrentSlice';
+import AddYoutubeLink from './addYoutubeLink';
+import { addMusicLink } from '../musicListLinkSlice';
+import { getId, getTitle } from '../../../components/inforYoutube';
+import { addSong } from '../musicListInfoSlice';
 
 function Index(props) {
     const dispatch = useDispatch();
@@ -32,11 +36,38 @@ function Index(props) {
         if(selectedElement)
             selectedElement.scrollIntoView();
     },[playing])
+    const musicListLink = useSelector(state=>state.musicListLink);
+    const handleAddSubmit = async (data,e)=>{
+        const value = data.add_link_input;
+        console.log(value);
+        console.log(musicListLink.includes(value));
+        if(!musicListLink.includes(value)){
+         const action = addMusicLink(value);
+         dispatch(action);
+         try{
+           const id = getId(value);
+           const res = await getTitle(id);
+           const title = res.data.items[0].snippet.title;
+           const img_url = `https://img.youtube.com/vi/${id}/0.jpg`;
+           const action1 = addSong({ url: value, img_url, title });
+           dispatch(action1);
+         } catch(error){
+           console.log(error);
+         }
+        }
+        else{
+          alert("Bai hat da ton tai");
+        }
+         
+           
+         e.target.reset();
+       }
     
     return (
         <div className="leftSide flex fl-col">
             <User/>
             <ListRoom handleSelect={handleSelect} />
+            <AddYoutubeLink onAddSubmit={handleAddSubmit}/>
         </div>
     );
 }

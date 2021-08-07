@@ -3,26 +3,9 @@ import Search from "./search";
 import MusicPlayer from "./musicPlayer"
 import { setPlayingCurrent } from '../playingCurrentSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {addMusicLink} from "../musicListLinkSlice";
-import { getId, getTitle } from '../../../components/inforYoutube';
-import { addSong } from '../musicListInfoSlice';
 function Index(props) {
   const {url} = props;
-  const dispatch = useDispatch();
-
-  const handleSearchSubmit = async (data,e)=>{
-   const value = data.search_input;
-    const action = addMusicLink(value);
-    dispatch(action);
-  
-      const id = getId(value);
-      const res = await getTitle(id);
-      const title = res.data.items[0].snippet.title;
-      const img_url = `https://img.youtube.com/vi/${id}/0.jpg`;
-      const action1 = addSong({ url: value, img_url, title });
-      dispatch(action1);
-    e.target.reset();
-  }
+  const dispatch = useDispatch();  
   const playing = useSelector(state=> state.playing);
   useEffect(()=>{
     if(!playing){
@@ -30,11 +13,13 @@ function Index(props) {
       const action = setPlayingCurrent(href);
       dispatch(action)
     }
-      
   },[])
+  const handleSearchSubmit = ()=>{
+
+  }
   return (
     <div className="main flex fl-col">
-      <Search handleSearchSubmit={handleSearchSubmit}/>
+      <Search onSearchSubmit={handleSearchSubmit} />
       <MusicPlayer linkMusic={url}/>
     </div>
   );
