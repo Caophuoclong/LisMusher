@@ -15,17 +15,21 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "casual-browserify": "^1.5.19-2",
+    "http2": "^3.3.7",
     "jquery": "^3.6.0",
     "react": "^17.0.2",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.2",
     "react-draggable": "^4.4.3",
     "react-hook-form": "^7.12.2",
+    "react-notifications": "^1.7.2",
     "react-player": "^2.9.0",
     "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
+    "react-toastify": "^7.0.4",
     "sass": "^1.37.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "youtube-search-without-api-key": "^1.0.6"
   },
   "scripts": {
     "start": "react-scripts start",

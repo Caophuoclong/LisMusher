@@ -4,12 +4,14 @@ import musicReducer from "../features/listenRoom/musicListInfoSlice";
 import musicListReducer from "../features/listenRoom/musicListLinkSlice";
 import roomListReducer from "../features/listenRoom/listRoomSlice";
 import friendListReducer from "../features/listenRoom/listFriendSlice";
+import searchResult from "../features/listenRoom/searchResultSlice";
 const rootReducer = {
   music: musicReducer,
   playing: playingReducer,
   musicListLink: musicListReducer,
   roomList: roomListReducer,
   friendList: friendListReducer,
+  searchResult: searchResult,
 };
 
 const store = configureStore({

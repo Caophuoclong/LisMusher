@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import searchWithKeyWord from "../../../components/searchYoutube";
+
 import Search from "./search";
 import MusicPlayer from "./musicPlayer"
 import { setPlayingCurrent } from '../playingCurrentSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { addSong } from '../musicListInfoSlice';
+import { searchDatatResult } from '../searchResultSlice';
 function Index(props) {
   const {url} = props;
   const dispatch = useDispatch();  
@@ -14,7 +18,24 @@ function Index(props) {
       dispatch(action)
     }
   },[])
-  const handleSearchSubmit = ()=>{
+  const handleSearchSubmit = async (data,e)=>{
+    const keyword = data.search_input;
+    const response = await searchWithKeyWord(keyword);
+    const items = response.data.items;
+    items.forEach(item=>{
+      const id = item.id.videoId;
+      const url = "https://www.youtube.com/watch?v="+id;
+      const title = item.snippet.title;
+      const thumbnail = item.snippet.thumbnails.medium.url;
+      const info = {
+        img_url: thumbnail,
+        url,
+        title
+      }
+      const actionAddSongToSearchResult = searchDatatResult(info);
+      dispatch(actionAddSongToSearchResult);
+    })
+    e.target.reset();
 
   }
   return (

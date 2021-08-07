@@ -4,6 +4,7 @@ import LeftSide from "./leftSide";
 import Main from "./main";
 import RightSide from "./rightSide";
 import JoinSocial from "../../components/joinSocial";
+import ResultSearch from "./resultSearch";
 function Index(props) {
   const [linkMusic, setLinkMusic] = useState(
     "https://www.youtube.com/watch?v=EwFyU2ou-lA&ab_channel=KARIK"
@@ -17,6 +18,7 @@ function Index(props) {
       <Main url={linkMusic} />
       <RightSide />
       <JoinSocial />
+      <ResultSearch />
     </div>
   );
 }

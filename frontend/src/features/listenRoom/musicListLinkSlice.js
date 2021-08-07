@@ -6,7 +6,7 @@ const musicListLink = createSlice({
   reducers: {
     addMusicLink: (state, action) => {
       const payload = action.payload;
-      if (state.indexOf(payload) === -1) state.push(action.payload);
+      if (!state.includes(payload)) state.push(action.payload);
     },
   },
 });

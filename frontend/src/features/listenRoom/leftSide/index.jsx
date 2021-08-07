@@ -54,13 +54,13 @@ function Index(props) {
          } catch(error){
            console.log(error);
          }
+         e.target.reset();
         }
         else{
           alert("Bai hat da ton tai");
         }
          
            
-         e.target.reset();
        }
     
     return (
