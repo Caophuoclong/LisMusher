@@ -1,4 +1,4 @@
 [build]
   base = "/frontend"
-  publish = "/src"
+  publish = "/"
   command = "CI= npm run build"
