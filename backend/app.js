@@ -3,7 +3,7 @@ const app = express();
 const http = require("http");
 const server = http.createServer(app);
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const homeRoute = require("./routes/home.route");
 const connectDB = require("./database/database");
 
