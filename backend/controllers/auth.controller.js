@@ -34,7 +34,7 @@ module.exports = {
       if (passwordHashed === passwordDb) {
         res.status(200).send(token);
       } else {
-        res.sendStatus(403).send("Sai tai khoan hoac mat khau");
+        res.sendStatus(403).send("Sai tai khoan hoac mat khau nha");
       }
     } catch (error) {
       console.log(error);
