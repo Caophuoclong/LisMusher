@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 const homeRoute = require("./routes/home.route");
 const connectDB = require("./database/database");
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "*",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
