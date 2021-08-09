@@ -12,11 +12,11 @@ index.defaultProps  ={
 }
 
 function index(props) {
-    const {user_img_url, user_name} = props;
+    const {user_img_url, username} = props;
     return (
         <div className="user">
             <img src={user_img_url} alt="" className="user__avatar" />
-            <p className="user__name fw">{user_name}</p>
+            <p className="user__name fw">{username}</p>
         </div>
     );
 }

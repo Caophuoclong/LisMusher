@@ -7,9 +7,13 @@ import AddYoutubeLink from "./addYoutubeLink";
 import { addMusicLink, removeLink } from "../musicListLinkSlice";
 import { getId, getTitle } from "../../../components/inforYoutube";
 import { addSong, removeSong } from "../musicListInfoSlice";
+import { uri } from "../../../axiosClient/apiAxiosClient";
+import axios from "axios";
 
 function Index(props) {
   const dispatch = useDispatch();
+  const {username} = props;
+  const token = JSON.parse(window.localStorage.getItem("token"));
   const handleSelect = (e) => {
     e.preventDefault();
     document.querySelectorAll(".link__music").forEach((value, pos) => {
@@ -59,10 +63,22 @@ function Index(props) {
       alert("Bai hat da ton tai");
     }
   };
-  const removeSongFromURL = (id,url)=>{
+  const removeSongFromURL = async (id,url)=>{
+    const index = musicListLink.indexOf(url);
+    console.log(index);
+    const urlAxios = uri + window.location.href.replace(/^.*\/\/[^\/]+/, '')+"/delete";
+            const headers={
+                authorization: token,
+            }
+            const response = await axios.post(urlAxios,{index: index},{
+                headers: headers,
+        })
+        console.log(response);
+ 
+      
       const actionRemoveLink = removeLink(url);
       const actionRemoveSong = removeSong(id); 
-      console.log(dispatch(actionRemoveSong));
+      dispatch(actionRemoveSong);
       dispatch(actionRemoveLink);
   }
   const handleDeleteClicked = (e) => {
@@ -81,7 +97,7 @@ function Index(props) {
   };
   return (
     <div className="leftSide flex fl-col">
-      <User />
+      <User username={username}/>
       <ListRoom
         handleSelect={handleSelect}
         onDeleteClicked={handleDeleteClicked}

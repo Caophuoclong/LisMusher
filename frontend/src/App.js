@@ -1,31 +1,42 @@
 import "./App.scss";
 import ListenRoom from "./features/listenRoom";
-import { useDispatch } from "react-redux";
-import music from "./features/listenRoom/music";
+import Login from "./features/login";
+import Register from "./features/register";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import jwt from "jsonwebtoken";
+import { useState } from "react";
 import { useEffect } from "react";
-import { addSong } from "./features/listenRoom/musicListInfoSlice";
-import { addMusicLink } from "./features/listenRoom/musicListLinkSlice";
-import { getId, getTitle } from "./components/inforYoutube";
 function App() {
-  const musicList = music.musicList;
-  const dispatch = useDispatch();
+  const token = window.localStorage.getItem("token");
+  const [name, setName] = useState(false);
   useEffect(() => {
-    musicList.forEach(async (value) => {
-      const id = getId(value);
-      console.log(id);
-      const res = await getTitle(id);
-      const title = res.data.items[0].snippet.title;
-      const img_url = `https://img.youtube.com/vi/${id}/0.jpg`;
-      const action = addSong({ id, url: value, img_url, title });
-      const action1 = addMusicLink(value);
-      dispatch(action);
-      dispatch(action1);
+    jwt.verify(JSON.parse(token), "2603", (error, data) => {
+      console.log(error);
+      if (error) {
+        console.log("error");
+      } else {
+        setName(data.username);
+        console.log(data);
+      }
     });
-  }, [dispatch, musicList]);
+  }, []);
+
   return (
-    <div className="App">
-      <ListenRoom />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={ListenRoom} />
+          <Route path="/dashboard/:id" exact component={ListenRoom} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 export default App;
