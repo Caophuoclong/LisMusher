@@ -6,7 +6,7 @@ const serectKey = "2603";
 module.exports = {
   register: async (req, res) => {
     try {
-      const { username, password, email } = req.body;
+      const { username, password, email, fullName } = req.body;
       const salt = casual.uuid;
       const newUser = await new user({
         username,
@@ -14,10 +14,13 @@ module.exports = {
         password: hashPassword.encrypt(password, salt),
         info: {
           email,
+          fullName,
         },
       });
       await newUser.save();
-      return res.sendStatus(200);
+      return res.status(200).send({
+        url: "/login",
+      });
     } catch (error) {
       console.log(error);
       return res.sendStatus(404);
@@ -27,7 +30,9 @@ module.exports = {
     try {
       const { username, password } = req.body;
       const getId = await user.findOne({ username });
-      const token = jwt.sign({ id: getId._id }, serectKey, { expiresIn: "1m" });
+      const token = jwt.sign({ id: getId._id, username }, serectKey, {
+        expiresIn: "1m",
+      });
       const salt = getId.salt;
       const passwordDb = getId.password;
       const passwordHashed = hashPassword.encrypt(password, salt);
@@ -42,10 +47,11 @@ module.exports = {
   },
   refreshToken: (req, res) => {
     const token = req.headers["authorization"];
+    console.log(req.headers);
     jwt.verify(token, serectKey, (error, data) => {
       if (error) throw error;
-      const id = data.id;
-      const tokenRefreshed = jwt.sign({ id }, serectKey, {
+      const { id, username } = data;
+      const tokenRefreshed = jwt.sign({ id, username }, serectKey, {
         expiresIn: "10m",
       });
       return res.status(200).send(tokenRefreshed);

@@ -1,11 +1,19 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
 const http = require("http");
 const server = http.createServer(app);
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
 const homeRoute = require("./routes/home.route");
 const connectDB = require("./database/database");
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
