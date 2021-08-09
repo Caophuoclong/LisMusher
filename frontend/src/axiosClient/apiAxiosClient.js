@@ -4,6 +4,6 @@ const axiosClient = async (data, uri) => {
   const response = await axios.post(url, data);
   return response;
 };
-const uri = "http://localhost:5000";
+const uri = "http://api.tcplong.me";
 export { uri };
 export default axiosClient;
