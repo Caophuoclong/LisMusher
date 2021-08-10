@@ -31,7 +31,7 @@ module.exports = {
       const { username, password } = req.body;
       const getId = await user.findOne({ username });
       const token = jwt.sign({ id: getId._id, username }, serectKey, {
-        expiresIn: "5m",
+        expiresIn: "1m",
       });
       const salt = getId.salt;
       const passwordDb = getId.password;
