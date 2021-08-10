@@ -136,18 +136,6 @@ module.exports = {
           (error, data) => {
             if (error) return res.status(405).send({ message: error });
             else {
-              await userSchema.findByIdAndUpdate(
-                { _id: id },
-                {
-                  $addToSet: {
-                    listRoom: roomName,
-                  },
-                },
-                { upsert: true, new: true },
-                (err, data) => {
-                  if (err) throw err;
-                }
-              );
               return res
                 .status(200)
                 .send({ message: "Join room successfully" });
