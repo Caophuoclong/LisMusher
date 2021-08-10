@@ -120,6 +120,7 @@ module.exports = {
       if (error) return res.status(403).send(error);
       else {
         const { id, username } = data;
+        const id1 = req.params.id;
         const roomname1 = await roomListSchema.findOne({ roomName });
         if (roomname1 === null)
           return res
