@@ -106,55 +106,17 @@ module.exports = {
         const roomList = await new roomListSchema({
           roomName,
           admin: _id,
+
           members: {
             memberID: _id,
             memberName: username,
           },
         });
         await roomList.save();
+
         return res.status(200).send({ message: "Create room success" });
       }
     });
   },
-  joinRoom: (req, res, next) => {
-    const { roomName } = req.body;
-    const token = req.headers["authorization"];
-    jwt.verify(token, serectKey, async (error, data) => {
-      if (error) return res.status(403).send(error);
-      else {
-        const { id, username } = data;
-        const id1 = req.params.id;
-        if (id1 !== id)
-          return res
-            .status(400)
-            .send({ message: "Loi khong xac dinh vui long dang nhap lai" });
-        console.log(id, username);
-        const roomname1 = await roomListSchema.findOne({ roomName });
-        if (roomname1 === null)
-          return res
-            .status(400)
-            .send({ message: "Room khong ton tai, vui long nhap lai ten" });
-        await roomListSchema.findOneAndUpdate(
-          { roomName: roomName },
-          {
-            $addToSet: {
-              members: {
-                memberID: id,
-                memberName: username,
-              },
-            },
-          },
-          { upsert: true, new: true },
-          (error, data) => {
-            if (error) return res.status(400).send({ message: error });
-            else {
-              return res
-                .status(200)
-                .send({ message: "Join room successfully" });
-            }
-          }
-        );
-      }
-    });
-  },
+  joinRoom: (req, res, next) => {},
 };

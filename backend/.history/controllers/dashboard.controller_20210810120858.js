@@ -130,10 +130,7 @@ module.exports = {
             .send({ message: "Loi khong xac dinh vui long dang nhap lai" });
         console.log(id, username);
         const roomname1 = await roomListSchema.findOne({ roomName });
-        if (roomname1 === null)
-          return res
-            .status(400)
-            .send({ message: "Room khong ton tai, vui long nhap lai ten" });
+        console.log(roomName1);
         await roomListSchema.findOneAndUpdate(
           { roomName: roomName },
           {
