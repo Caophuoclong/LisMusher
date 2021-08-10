@@ -5,6 +5,7 @@ const dashboardController = require("../controllers/dashboard.controller");
 router.get("/:id", dashboardController.response);
 router.post("/:id/delete", dashboardController.delete);
 router.post("/:id/add", dashboardController.add);
-// router.post("/", dashboardController.postHome);
+router.post("/:id/createroom", dashboardController.createRoom);
+router.post("/:id/joinroom", dashboardController.joinRoom);
 
 module.exports = router;

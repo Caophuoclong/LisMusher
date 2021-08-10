@@ -79,4 +79,26 @@ module.exports = {
       res.sendStatus(200);
     });
   },
+  createRoom: (req, res, next) => {
+    const roomName = req.body;
+    const token = req.headers["authorization"];
+    jwt.verify(token, serectKey, (err, data) => {
+      if (err) {
+        return res.status(403).send({ err });
+      } else {
+        const id = data.id;
+        const update = await userSchema.findByIdAndUpdate(
+          { _id: id },
+          {
+            $addToSet: {
+              listRoom: roomName,
+            },
+          },
+          { upsert: true, new: true }
+        );
+        return res.status(200).send({ message: "Create room success" });
+      }
+    });
+  },
+  joinRoom: (req, res, next) => {},
 };
