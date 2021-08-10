@@ -48,6 +48,7 @@ module.exports = {
           },
           { upsert: true, new: true }
         );
+        console.log(update);
 
         res.sendStatus(200);
       });
@@ -60,9 +61,8 @@ module.exports = {
     const { url } = req.body;
     jwt.verify(token, "2603", async (error, data) => {
       if (error) {
-        return res
-          .sendStatus(403)
-          .send({ message: "Loi xac thuc vui long dang nhap lai" });
+        console.log(error);
+        return res.sendStatus(403);
       }
       const id = data.id;
       const update = await userSchema.findByIdAndUpdate(
@@ -74,6 +74,7 @@ module.exports = {
         },
         { upsert: true, new: true }
       );
+      console.log(update);
 
       res.sendStatus(200);
     });
@@ -95,7 +96,8 @@ module.exports = {
           },
           { upsert: true, new: true },
           (err, data) => {
-            if (err) throw err;
+            if (err) console.log(err);
+            console.log(data);
           }
         );
         const user = await userSchema.findById(id);

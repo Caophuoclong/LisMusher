@@ -18,11 +18,12 @@ module.exports = {
     });
     try {
       const { id } = req.auth;
+      console.log("xin chao dashboard");
       const user = await userSchema.findById(id);
       const { listRoom, listMusic } = user;
       return res.status(200).send({ listRoom, listMusic });
     } catch (error) {
-      throw error;
+      console.log(error);
     }
   },
   delete: (req, res, next) => {
@@ -31,14 +32,14 @@ module.exports = {
     try {
       jwt.verify(token, "2603", async (error, data) => {
         if (error) {
-          return res
-            .sendStatus(403)
-            .send({ message: "Loi xac thuc, vui long dang nhap lai" });
+          console.log(error);
+          return res.sendStatus(403);
         }
         const id = data.id;
         const user = await userSchema.findById(id);
         const { listMusic } = user;
         listMusic.splice(index, 1);
+        console.log(listMusic);
         const update = await userSchema.findByIdAndUpdate(
           { _id: id },
           {
@@ -48,6 +49,7 @@ module.exports = {
           },
           { upsert: true, new: true }
         );
+        console.log(update);
 
         res.sendStatus(200);
       });
@@ -60,9 +62,8 @@ module.exports = {
     const { url } = req.body;
     jwt.verify(token, "2603", async (error, data) => {
       if (error) {
-        return res
-          .sendStatus(403)
-          .send({ message: "Loi xac thuc vui long dang nhap lai" });
+        console.log(error);
+        return res.sendStatus(403);
       }
       const id = data.id;
       const update = await userSchema.findByIdAndUpdate(
@@ -74,6 +75,7 @@ module.exports = {
         },
         { upsert: true, new: true }
       );
+      console.log(update);
 
       res.sendStatus(200);
     });
@@ -95,7 +97,8 @@ module.exports = {
           },
           { upsert: true, new: true },
           (err, data) => {
-            if (err) throw err;
+            if (err) console.log(err);
+            console.log(data);
           }
         );
         const user = await userSchema.findById(id);
@@ -157,15 +160,7 @@ module.exports = {
   getMember: (req, res, next) => {
     const token = req.headers["authorization"];
     const { roomname } = req.query;
-    jwt.verify(token, serectKey, async (err, data) => {
-      if (err)
-        return res
-          .status(403)
-          .send({ message: "Loi xac thuc vui long dang nhap lai" });
-      else {
-        const roomList = await roomListSchema.findOne({ roomName: roomname });
-        return res.status(200).send({ members: roomList.members });
-      }
-    });
+    console.log(roomname);
+    return res.status(200).send("123");
   },
 };
