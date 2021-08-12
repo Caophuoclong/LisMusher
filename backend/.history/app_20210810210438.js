@@ -38,7 +38,6 @@ app.use("/auth", authRoute);
 app.use("/dashboard", dashboardRoute);
 
 io.on("connection", (socket) => {
-  console.log("co nguoi ket noi", socket.id);
   socket.on("joinroom", (room) => {
     socket.join(room);
     console.log(socket.id, room);

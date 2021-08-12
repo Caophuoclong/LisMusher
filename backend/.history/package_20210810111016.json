@@ -16,6 +16,6 @@
     "json-web-token": "^3.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.5",
-    "socket.io": "^4.1.2"
+    "socket.io": "^4.1.3"
   }
 }

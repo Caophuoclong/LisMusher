@@ -38,7 +38,6 @@ app.use("/auth", authRoute);
 app.use("/dashboard", dashboardRoute);
 
 io.on("connection", (socket) => {
-  console.log("co nguoi ket noi", socket.id);
   socket.on("joinroom", (room) => {
     socket.join(room);
     console.log(socket.id, room);
@@ -49,6 +48,6 @@ io.on("connection", (socket) => {
   socket.on("sharemusic", (data) => {
     const { room, music } = data;
     console.log(socket.adapter.rooms);
-    socket.broadcast.to(room).emit("sharemusic", "chaof em ");
+    io.to(room).emit("reply", music);
   });
 });

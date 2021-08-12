@@ -13,11 +13,6 @@ const corsOptions = {
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
-const io = require("socket.io")(server, {
-  cors: {
-    corsOptions,
-  },
-});
 app.use(cors(corsOptions));
 
 // parse application/x-www-form-urlencoded
@@ -36,19 +31,3 @@ connectDB();
 app.use("/", homeRoute);
 app.use("/auth", authRoute);
 app.use("/dashboard", dashboardRoute);
-
-io.on("connection", (socket) => {
-  console.log("co nguoi ket noi", socket.id);
-  socket.on("joinroom", (room) => {
-    socket.join(room);
-    console.log(socket.id, room);
-  });
-  socket.on("leaveroom", (room) => {
-    socket.leave(room);
-  });
-  socket.on("sharemusic", (data) => {
-    const { room, music } = data;
-    console.log(socket.adapter.rooms);
-    socket.broadcast.to(room).emit("sharemusic", "chaof em ");
-  });
-});
