@@ -20,6 +20,10 @@ function Index(props) {
         const action = addFriend(value);
         dispatch(action);
     })
+    useEffect(()=>{
+      socket.connect(); 
+
+    },[])
     const onMemberClick = async (e) => {
         e.preventDefault();
         document.querySelectorAll(".item--name").forEach((value) => {
@@ -27,11 +31,6 @@ function Index(props) {
         });
         e.target.classList.add("selected");
         const room = e.target.innerText;
-
-        socket.emit("leaveroom",currentRoom);
-        const actionSetRoomCurrent = setRoomCurrent(room);
-        dispatch(actionSetRoomCurrent); 
-        socket.emit("joinroom",room);
         const url = uri + `/dashboard/getmemberinroom?roomname=${room}`;
         const headers = {
           authorization: token,
@@ -39,9 +38,16 @@ function Index(props) {
         const response = await axios.get(url, {
           headers: headers,
         });
+        socket.emit("leaveroom",room);
         setMemberInRoom(response.data.members);
-
-        
+        const actionSetRoomCurrent = setRoomCurrent(room);
+        dispatch(actionSetRoomCurrent); 
+        socket.emit("joinroom",currentRoom);
+        socket.on("reply",(data)=>{
+          const actionSetPlaying = setPlayingCurrent(data.music);
+          dispatch(actionSetPlaying);
+          
+        })
 };
 
     return (

@@ -7,12 +7,12 @@ import { setPlayingCurrent } from '../playingCurrentSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchDatatResult } from '../searchResultSlice';
 function Index(props) {
-  const {url, socket} = props;
+  const {url} = props;
   const dispatch = useDispatch();  
   const playing = useSelector(state=> state.playing);
   useEffect(()=>{
     if(!playing){
-      const href = window.localStorage.getItem("current-song");
+      const href = JSON.parse(window.localStorage.getItem("current-song"));
       const action = setPlayingCurrent(href);
       dispatch(action)
     }
@@ -46,7 +46,7 @@ function Index(props) {
   return (
     <div className="main flex fl-col">
       <Search onSearchSubmit={handleSearchSubmit} />
-      <MusicPlayer linkMusic={url} socket={socket}/>
+      <MusicPlayer linkMusic={url}/>
     </div>
   );
 }

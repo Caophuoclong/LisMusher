@@ -26,12 +26,11 @@ function Index(props) {
           value.classList.remove("selected");
         });
         e.target.classList.add("selected");
-        const room = e.target.innerText;
-
-        socket.emit("leaveroom",currentRoom);
+        socket.emit("leaveroom",room);
         const actionSetRoomCurrent = setRoomCurrent(room);
         dispatch(actionSetRoomCurrent); 
-        socket.emit("joinroom",room);
+        socket.emit("joinroom",currentRoom);
+        const room = e.target.innerText;
         const url = uri + `/dashboard/getmemberinroom?roomname=${room}`;
         const headers = {
           authorization: token,

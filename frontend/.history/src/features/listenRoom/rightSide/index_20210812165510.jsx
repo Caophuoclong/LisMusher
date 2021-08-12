@@ -26,12 +26,12 @@ function Index(props) {
           value.classList.remove("selected");
         });
         e.target.classList.add("selected");
-        const room = e.target.innerText;
-
-        socket.emit("leaveroom",currentRoom);
+        socket.emit("leaveroom",room);
+        setMemberInRoom(response.data.members);
         const actionSetRoomCurrent = setRoomCurrent(room);
         dispatch(actionSetRoomCurrent); 
-        socket.emit("joinroom",room);
+        socket.emit("joinroom",currentRoom);
+        const room = e.target.innerText;
         const url = uri + `/dashboard/getmemberinroom?roomname=${room}`;
         const headers = {
           authorization: token,
@@ -39,8 +39,7 @@ function Index(props) {
         const response = await axios.get(url, {
           headers: headers,
         });
-        setMemberInRoom(response.data.members);
-
+        
         
 };
 

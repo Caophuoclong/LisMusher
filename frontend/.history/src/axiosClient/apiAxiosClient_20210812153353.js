@@ -5,7 +5,7 @@ const axiosClient = async (data, uri) => {
   return response;
 };
 
-const uri = "https://api-tcplong.herokuapp.com";
-// const uri = "http://localhost:5000";
+// const uri = "https://api-tcplong.herokuapp.com";
+const uri = "http://localhost:5000";
 export { uri };
 export default axiosClient;

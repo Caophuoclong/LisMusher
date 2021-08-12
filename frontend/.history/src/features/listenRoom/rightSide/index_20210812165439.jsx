@@ -27,11 +27,6 @@ function Index(props) {
         });
         e.target.classList.add("selected");
         const room = e.target.innerText;
-
-        socket.emit("leaveroom",currentRoom);
-        const actionSetRoomCurrent = setRoomCurrent(room);
-        dispatch(actionSetRoomCurrent); 
-        socket.emit("joinroom",room);
         const url = uri + `/dashboard/getmemberinroom?roomname=${room}`;
         const headers = {
           authorization: token,
@@ -39,8 +34,11 @@ function Index(props) {
         const response = await axios.get(url, {
           headers: headers,
         });
+        socket.emit("leaveroom",room);
         setMemberInRoom(response.data.members);
-
+        const actionSetRoomCurrent = setRoomCurrent(room);
+        dispatch(actionSetRoomCurrent); 
+        socket.emit("joinroom",currentRoom);
         
 };
 

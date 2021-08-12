@@ -106,7 +106,7 @@ function Index(props) {
             addToList(result);
         const actionSetPlaying = setPlayingCurrent(result.url);
         dispatch(actionSetPlaying);
-        window.localStorage.setItem("current-song",result.url);
+        window.localStorage.setItem("current-song",JSON.stringify(result.url));
         const actionEmptyResult = emptyResult();
         dispatch(actionEmptyResult)} catch(error){}
         

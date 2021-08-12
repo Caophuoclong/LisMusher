@@ -16,7 +16,7 @@ import { useHistory } from "react-router-dom";
 import { uri } from "../../axiosClient/apiAxiosClient";
 import axios from "axios";
 import { setRoomList } from "./listRoomSlice";
-import { io } from "socket.io-client";
+import {io} from "socket.io-client";
 function Index(props) {
   const dispatch = useDispatch();
   const [token, setToken] = useState(
@@ -108,12 +108,12 @@ function Index(props) {
     }, 10000);
     return () => clearInterval(interval);
   }, []);
-  const socket = useMemo(() => io(uri), []);
+  const socket = useMemo(()=> io(uri),[];)
   return (
     <div className="flex fl-start h-1">
       <LeftSide username={name} />
-      <Main socket={socket} />
-      <RightSide socket={socket} />
+      <Main />
+      <RightSide />
       <JoinSocial />
       <ResultSearch />
     </div>

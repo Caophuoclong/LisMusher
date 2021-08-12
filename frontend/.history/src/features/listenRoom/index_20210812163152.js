@@ -113,7 +113,7 @@ function Index(props) {
     <div className="flex fl-start h-1">
       <LeftSide username={name} />
       <Main socket={socket} />
-      <RightSide socket={socket} />
+      <RightSide />
       <JoinSocial />
       <ResultSearch />
     </div>

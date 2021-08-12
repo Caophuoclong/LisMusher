@@ -22,7 +22,7 @@ function Index(props) {
     const href = e.target.getAttribute("href");
     if (href !== null) {
       e.target.classList.add("selected");
-      window.localStorage.setItem("current-song", href);
+      window.localStorage.setItem("current-song", JSON.stringify(href));
       dispatch(setPlayingCurrent(href));
     }
   };
@@ -86,7 +86,7 @@ function Index(props) {
       const id = e.target.id;
       console.log(e.target);
       const url = "https://www.youtube.com/watch?v="+id;
-      const current_song = window.localStorage.getItem("current-song");
+      const current_song = JSON.parse(window.localStorage.getItem("current-song"));
       console.log(current_song);
       if(url === current_song){
         console.log("Playing...");

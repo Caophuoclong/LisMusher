@@ -28,7 +28,7 @@ function Index(props) {
         e.target.classList.add("selected");
         const room = e.target.innerText;
 
-        socket.emit("leaveroom",currentRoom);
+        // socket.emit("leaveroom",currentRoom);
         const actionSetRoomCurrent = setRoomCurrent(room);
         dispatch(actionSetRoomCurrent); 
         socket.emit("joinroom",room);

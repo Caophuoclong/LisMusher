@@ -31,7 +31,7 @@ function Index(props) {
         socket.emit("leaveroom",currentRoom);
         const actionSetRoomCurrent = setRoomCurrent(room);
         dispatch(actionSetRoomCurrent); 
-        socket.emit("joinroom",room);
+        socket.emit("joinroom",currentRoom);
         const url = uri + `/dashboard/getmemberinroom?roomname=${room}`;
         const headers = {
           authorization: token,

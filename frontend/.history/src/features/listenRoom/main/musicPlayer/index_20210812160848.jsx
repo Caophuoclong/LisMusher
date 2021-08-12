@@ -5,9 +5,11 @@ import ShowMusicPlayer from "./showMusicPlayer";
 import { useSelector, useDispatch } from "react-redux";
 import { setPlayingCurrent } from "../../playingCurrentSlice";
 import { uri } from "../../../../axiosClient/apiAxiosClient";
+import {io} from "socket.io-client";
 Index.propTypes = {};
 
 function Index(props) {
+  const socket = io(uri,{ autoConnect: false});
   const linkMusic = useSelector((state) => state.playing);
   const dispatch = useDispatch();
   const roomCurrent = useSelector((state) => state.roomCurrent);
@@ -20,10 +22,9 @@ function Index(props) {
   const [volume, setVolume] = useState(20);
   const [mute, setMute] = useState(false);
   const [loop, setLoop] = useState(false);
-  const currentSong = window.localStorage.getItem("current-song");
+  const currentSong = JSON.parse(window.localStorage.getItem("current-song"));
   const [share, setShare] = useState(false);
   const [url, setUrl] = useState();
-  const {socket}= props;
   const ref = (pl) => {
     setPlayer(pl);
   };
@@ -74,7 +75,7 @@ function Index(props) {
     }
     const nextSong = listLinkMusic[position];
     if (nextSong) {
-      window.localStorage.setItem("current-song", nextSong);
+      window.localStorage.setItem("current-song", JSON.stringify(nextSong));
       const action = setPlayingCurrent(nextSong);
       dispatch(action);
     }
@@ -88,7 +89,7 @@ function Index(props) {
     }
     const previousSong = listLinkMusic[position];
     if (previousSong) {
-      window.localStorage.setItem("current-song", previousSong);
+      window.localStorage.setItem("current-song", JSON.stringify(previousSong));
       const action = setPlayingCurrent(previousSong);
       dispatch(action);
     }
@@ -97,14 +98,10 @@ function Index(props) {
     handleForward();
   };
   const handleShare = () => {
-    const music = linkMusic;
-    socket.emit("shareMusic",{roomCurrent,music});
+    socket.connect();
+    const music = JSON.parse(linkMusic);
+    socket.emit("shareMusic", {roomCurrent, music});
   };
-  socket.on("reply",(data)=>{
-    const actionSetPlaying = setPlayingCurrent(data.music);
-    dispatch(actionSetPlaying);
-    setPlaying(true);
-  })
   return (
     <div className="musicPlayer">
       <ReactPlayer

@@ -12,7 +12,7 @@ function Index(props) {
   const playing = useSelector(state=> state.playing);
   useEffect(()=>{
     if(!playing){
-      const href = window.localStorage.getItem("current-song");
+      const href = JSON.parse(window.localStorage.getItem("current-song"));
       const action = setPlayingCurrent(href);
       dispatch(action)
     }

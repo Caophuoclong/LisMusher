@@ -20,7 +20,7 @@ function Index(props) {
   const [volume, setVolume] = useState(20);
   const [mute, setMute] = useState(false);
   const [loop, setLoop] = useState(false);
-  const currentSong = window.localStorage.getItem("current-song");
+  const currentSong = JSON.parse(window.localStorage.getItem("current-song"));
   const [share, setShare] = useState(false);
   const [url, setUrl] = useState();
   const {socket}= props;
