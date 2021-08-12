@@ -47,10 +47,11 @@ io.on("connection", (socket) => {
     socket.leave(room);
   });
   socket.on("shareMusic", (data) => {
-    const { roomCurrent, music } = data;
-    console.log(data);
+    const { roomCurrent, linkMusic } = data;
     try{
+      let music = linkMusic;
       socket.to(roomCurrent).emit('reply',{roomCurrent,music});
+
     } catch(error){
       throw error;
     }

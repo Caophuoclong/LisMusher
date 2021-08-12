@@ -39,20 +39,14 @@ app.use("/dashboard", dashboardRoute);
 
 io.on("connection", (socket) => {
   console.log("co nguoi ket noi", socket.id);
-  socket.on("joinroom", (room) => {
-    console.log(room);
-    socket.join(room);  
-  });
+  // socket.on("joinroom", (room) => {
+  //   socket.join(room);  });
   socket.on("leaveroom", (room) => {
     socket.leave(room);
   });
   socket.on("shareMusic", (data) => {
-    const { roomCurrent, music } = data;
-    console.log(data);
-    try{
-      socket.to(roomCurrent).emit('reply',{roomCurrent,music});
-    } catch(error){
-      throw error;
-    }
+    const { room, music } = data;
+    console.log("Share music");
+    io.emit("StupidConnection", music);
   });
 });

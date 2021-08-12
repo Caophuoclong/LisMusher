@@ -48,7 +48,6 @@ io.on("connection", (socket) => {
   });
   socket.on("shareMusic", (data) => {
     const { roomCurrent, music } = data;
-    console.log(data);
     try{
       socket.to(roomCurrent).emit('reply',{roomCurrent,music});
     } catch(error){

@@ -40,7 +40,6 @@ app.use("/dashboard", dashboardRoute);
 io.on("connection", (socket) => {
   console.log("co nguoi ket noi", socket.id);
   socket.on("joinroom", (room) => {
-    console.log(room);
     socket.join(room);  
   });
   socket.on("leaveroom", (room) => {
