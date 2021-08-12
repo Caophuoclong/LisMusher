@@ -22,6 +22,7 @@ function Index(props) {
   const [mute, setMute] = useState(false);
   const [loop, setLoop] = useState(false);
   const currentSong = JSON.parse(window.localStorage.getItem("current-song"));
+  const socket = io(uri,{ autoConnect: true });
   const [share, setShare] = useState(false);
   const [url, setUrl] = useState();
   const ref = (pl) => {
@@ -105,12 +106,11 @@ function Index(props) {
     socket.on("stupidConnection",()=>{
       alert("xin chao");
     })
-    setShare(false);
-    console.log("xin chao");
     return ()=>{
       socket.close();
     }
-    
+    setShare(false);
+    console.log("xin chao");
   },[share]);
 
   return (

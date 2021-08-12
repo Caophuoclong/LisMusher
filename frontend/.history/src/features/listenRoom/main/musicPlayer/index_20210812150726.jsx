@@ -22,7 +22,8 @@ function Index(props) {
   const [mute, setMute] = useState(false);
   const [loop, setLoop] = useState(false);
   const currentSong = JSON.parse(window.localStorage.getItem("current-song"));
-  const [share, setShare] = useState(false);
+  const socket = io(uri,{ autoConnect: true });
+
   const [url, setUrl] = useState();
   const ref = (pl) => {
     setPlayer(pl);
@@ -97,21 +98,11 @@ function Index(props) {
     handleForward();
   };
   const handleShare = () => {
-    setShare(true);
+    socket.emit("shareMusic", { room: roomCurrent, music: linkMusic });
   };
-  useEffect(() => {
-    const socket = io(uri);
-    socket.emit("shareMusic",{roomCurrent, linkMusic});
-    socket.on("stupidConnection",()=>{
-      alert("xin chao");
-    })
-    setShare(false);
-    console.log("xin chao");
-    return ()=>{
-      socket.close();
-    }
-    
-  },[share]);
+  socket.on('reply',data=>{
+		alert(data);
+	})
 
   return (
     <div className="musicPlayer">
