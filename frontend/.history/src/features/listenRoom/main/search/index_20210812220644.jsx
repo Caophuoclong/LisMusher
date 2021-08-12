@@ -22,6 +22,7 @@ function Index(props) {
           <input
             type="text"
             className="inp-search"
+            id="inp-link"
             placeholder="Search..."
             {...register("search_input")}
             autocomplete="off"

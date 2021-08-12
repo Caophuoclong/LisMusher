@@ -1,35 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
+import "./addYoutubeLink.scss"
 
 Index.propTypes = {
-  onSearchSubmit: PropTypes.func,
+  onAddSubmit: PropTypes.func,
 };
 
 Index.defaultProps = {
-  onSearchSubmit: null,
+  onAddSubmit: null,
 };
 
 function Index(props) {
   const { register, handleSubmit} = useForm();
-  const { onSearchSubmit } = props;
+  const { onAddSubmit } = props;
   return (
-    <div className="search-bar">
-        <form   onSubmit={handleSubmit(onSearchSubmit)}>
+    <div className="add-link-form">
+        <form   onSubmit={handleSubmit(onAddSubmit)}>
           <div className="input-group">
           <input
             type="text"
             className="inp-search"
-            placeholder="Search..."
-            {...register("search_input")}
+            id="inp-add-link"
+            placeholder="Type youtube link"
+            {...register("add_link_input")}
             autocomplete="off"
           />
           <FontAwesomeIcon
-            icon={faSearch}
+            icon={faPlusCircle}
             className="icon-search"
-            onClick={onSearchSubmit}
+            onClick={onAddSubmit}
           />
           </div>
         </form>

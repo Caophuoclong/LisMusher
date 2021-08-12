@@ -14,11 +14,14 @@ import { setPlayingCurrent } from '../playingCurrentSlice';
 import { getId } from '../../../components/inforYoutube';
 import { uri } from '../../../axiosClient/apiAxiosClient';
 import axios from 'axios';
+import { useEffect } from 'react';
+
 function Index(props) {
     const searchResult = useSelector(state => state.searchResult);
     const search_result = document.getElementById("result-search-complete");
     const dispatch = useDispatch();
     const token = JSON.parse(window.localStorage.getItem("token"));
+    const [result, setResult] = useState({});
     if(searchResult.length === 20){
         if(search_result)
             search_result.style.display = "block";
@@ -58,7 +61,7 @@ function Index(props) {
 
       const addToList = async (result)=>{
         try{
-            if(result){
+            if(url){
             const url = result.url;
             const img_url = result.img_url;
             const title = result.title;

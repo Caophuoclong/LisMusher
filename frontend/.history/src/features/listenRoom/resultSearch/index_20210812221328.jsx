@@ -14,6 +14,8 @@ import { setPlayingCurrent } from '../playingCurrentSlice';
 import { getId } from '../../../components/inforYoutube';
 import { uri } from '../../../axiosClient/apiAxiosClient';
 import axios from 'axios';
+import { useEffect } from 'react';
+
 function Index(props) {
     const searchResult = useSelector(state => state.searchResult);
     const search_result = document.getElementById("result-search-complete");

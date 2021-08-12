@@ -5,10 +5,11 @@ import Main from "./main";
 import RightSide from "./rightSide";
 import JoinSocial from "../../components/joinSocial";
 import ResultSearch from "./resultSearch";
+// import { musicList } from "./music";
 import { useDispatch } from "react-redux";
 import { getId, getTitle } from "../../components/inforYoutube";
 import { addSong } from "./musicListInfoSlice";
-import { addListLink } from "./musicListLinkSlice";
+import { addListLink, addMusicLink } from "./musicListLinkSlice";
 import jwt from "jsonwebtoken";
 import { serectKey } from "../../serectKey";
 import { useHistory } from "react-router-dom";
@@ -59,7 +60,6 @@ function Index(props) {
       const action = addSong({ id, url: value, img_url, title });
       dispatch(action);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [musicList]);
   useEffect(() => {
     try {

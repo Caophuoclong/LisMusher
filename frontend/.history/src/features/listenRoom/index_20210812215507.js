@@ -5,10 +5,11 @@ import Main from "./main";
 import RightSide from "./rightSide";
 import JoinSocial from "../../components/joinSocial";
 import ResultSearch from "./resultSearch";
+// import { musicList } from "./music";
 import { useDispatch } from "react-redux";
 import { getId, getTitle } from "../../components/inforYoutube";
 import { addSong } from "./musicListInfoSlice";
-import { addListLink } from "./musicListLinkSlice";
+import { addListLink, addMusicLink } from "./musicListLinkSlice";
 import jwt from "jsonwebtoken";
 import { serectKey } from "../../serectKey";
 import { useHistory } from "react-router-dom";
@@ -22,8 +23,8 @@ function Index(props) {
     JSON.parse(window.localStorage.getItem("token"))
   );
   const [name, setName] = useState("");
-  const [musicList, setMusicList] = useState([]);
-  const [id, setId] = useState(null);
+  const [musicList, setMuiscList] = useState([]);
+  const [id, setId] = useState("");
   const history = useHistory();
   if (!token) {
     history.push("/login");
@@ -32,23 +33,21 @@ function Index(props) {
     const headers = {
       Authorization: token,
     };
-    if (id) {
-      axios
-        .get(uri + `/dashboard/${id}`, {
-          headers: headers,
-        })
-        .then((response) => {
-          setMusicList(response.data.listMusic);
-          try {
-            const actionRoomList = setRoomList(response.data.listRoom);
-            const action = addListLink(response.data.listMusic);
-            dispatch(action);
-            dispatch(actionRoomList);
-          } catch (err) {
-            throw err;
-          }
-        });
-    }
+    axios
+      .get(uri + `/dashboard/${id}`, {
+        headers: headers,
+      })
+      .then((response) => {
+        setMuiscList(response.data.listMusic);
+        try {
+          const actionRoomList = setRoomList(response.data.listRoom);
+          const action = addListLink(response.data.listMusic);
+          dispatch(action);
+          dispatch(actionRoomList);
+        } catch (err) {
+          throw err;
+        }
+      });
   }, [id]);
   useEffect(() => {
     musicList.forEach(async (value) => {
@@ -59,7 +58,6 @@ function Index(props) {
       const action = addSong({ id, url: value, img_url, title });
       dispatch(action);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [musicList]);
   useEffect(() => {
     try {
