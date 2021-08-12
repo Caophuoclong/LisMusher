@@ -18,7 +18,7 @@ function Index(props) {
                 <input type="password" autocomplete="off" className="input" id="password" {...register("password")}/>
                 <FontAwesomeIcon icon={faKey} size="2x"/>
             </div>
-             <Link to="/signup" className="btn-signup" ><h2>Tạo tài khoản</h2></Link>
+             <Link to="/register" className="btn-signup" ><h2>Tạo tài khoản</h2></Link>
             <button type="submit" className="btn-submit">Đăng nhập</button>
         </form>
     );

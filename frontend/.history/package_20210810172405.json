@@ -1,0 +1,76 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@ramonak/react-progress-bar": "^3.2.1",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "casual-browserify": "^1.5.19-2",
+    "ci": "^2.1.1",
+    "http2": "^3.3.7",
+    "jquery": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "netify": "^1.0.0",
+    "react": "^17.0.2",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^17.0.2",
+    "react-dotenv": "^0.1.3",
+    "react-draggable": "^4.4.3",
+    "react-hook-form": "^7.12.2",
+    "react-notifications": "^1.7.2",
+    "react-player": "^2.9.0",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-toastify": "^7.0.4",
+    "sass": "^1.37.2",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3",
+    "web-vitals": "^1.1.2",
+    "youtube-search-without-api-key": "^1.0.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.36",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "URI",
+      "SERECT_KEY"
+    ]
+  }
+}

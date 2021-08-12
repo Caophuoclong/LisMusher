@@ -12,7 +12,7 @@ function Register(props) {
         const response = await axios.post(url,data);
         console.log(response.status);
         if(response.status === 200){
-            history.push(response.data.url+`/${response.data.id}`);
+            history.push(response.data.url);
         }
         else{
             alert("Loi dang ky, vui long thu lai sau");
