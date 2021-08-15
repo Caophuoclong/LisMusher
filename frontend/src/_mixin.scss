@@ -1,0 +1,33 @@
+@import "./variables";
+@mixin circle($size: 50px){
+    width: $size;
+    height: $size;
+    border-radius: 100rem;
+}
+
+@mixin bgColor($color: $bg){
+    background-color: $color;
+}
+
+@mixin color ($color: $color){
+    color: $color;
+}
+
+@mixin flexCenter(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin absoluteCenter($direction: "left"){
+    position: absolute;
+    @if $direction == "left"{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    @if $direction == "both"{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
